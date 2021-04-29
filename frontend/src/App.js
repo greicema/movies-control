@@ -5,8 +5,9 @@ const App = () => {
     <>
       <h1>Seu controle de séries e filmes</h1>
       <MovieList />
-    </>
+    </>   
+           
   )
 }
-
+  
 export default App;

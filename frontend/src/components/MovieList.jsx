@@ -9,9 +9,7 @@ const MovieList = () => {
         const res = await fetch(url);
         setMovies(await res.json());
     }, [])
-    
-    //criar um parãmetro assitido: sim ou não para as produções que ainda não vi. a lógica vai ser semelhante ao parâmetro type
-    
+            
     return(
             <table className="striped">
                 <thead>
@@ -22,6 +20,7 @@ const MovieList = () => {
                     <th>Temporada atual</th>
                     <th>Episódios</th>
                     <th>Episódio atual</th>
+                    <th>Já foi visto?</th>
                     <th>Visto por último</th>
                 </tr>
                 </thead>
@@ -29,7 +28,12 @@ const MovieList = () => {
                 <tbody>
                 {movies.map(movie => {
                     let type = movie.type === 0 ? 'Série' : 'Filme';
-                    let formatDate = (movie.last_view).split('T', 1)
+                    let formatDate = (movie.last_view).split('T', 1);
+                    let watched = movie.watched === 0 ? 'Sim' : 'Não'
+                    
+                    if(movie.watched === 1){
+                        formatDate = null;
+                    }
                     
                     return(
                         <tr key={movie.id}>
@@ -39,6 +43,7 @@ const MovieList = () => {
                             <td>{movie.current_season}</td>
                             <td>{movie.total_ep}</td>
                             <td>{movie.atual_ep}</td>
+                            <td>{watched}</td>
                             <td>{formatDate}</td>
                         </tr>
                     )
